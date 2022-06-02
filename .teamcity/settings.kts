@@ -104,7 +104,7 @@ class MoleculeTest(config: Config, buildConfig: BuildType.() -> Unit = {}) : Bui
     steps {
         script {
             scriptContent = """
-                cd roles/${config.role}; molecule test
+                cd roles/${config.role.lowercase()}; molecule test
             """.trimIndent()
         }
     }
