@@ -6,6 +6,9 @@
       - php8.1-curl
       - php8.1-xml
     state: absent
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
   become: yes
   when: ansible_distribution_version == "22.04"
 - name: Add the main PHP PPA repository Ondrej for installing PHP 7.4 for arcanite
@@ -13,6 +16,9 @@
     repo: 'ppa:ondrej/php'
     state: present
   become: yes
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
   when: ansible_distribution_version == "22.04"
 - name: Install PHP 7.4 and dependencies needed for arcanite
   ansible.builtin.apt:
@@ -20,5 +26,8 @@
       - php7.4
       - php7.4-curl
       - php7.4-xml
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
   become: yes
   when: ansible_distribution_version == "20.04" or ansible_distribution_version == "22.04"

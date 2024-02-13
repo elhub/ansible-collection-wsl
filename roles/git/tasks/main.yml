@@ -4,6 +4,9 @@
     name:
       - git
   become: yes
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
 
 - name: Add git-hooks paths
   ansible.builtin.file:

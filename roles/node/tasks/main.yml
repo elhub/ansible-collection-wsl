@@ -4,11 +4,42 @@
   args:
     creates: "{{ nvm_install_path }}/nvm.sh"
 
-- name: install node
-  shell: |
-    . {{ nvm_install_path }}/nvm.sh
-    nvm install {{ node_version }}
-  args:
-    executable: /bin/bash
-  register: node_version_response
-  changed_when: "'already installed' not in node_version_response.stderr"
+- name: create .curlrc for installing with nvm via proxy
+  copy:
+    dest: "{{ ansible_env.HOME }}/.curlrc"
+    content: |
+      proxy = proxy.elhub.cloud:3128
+    owner: "teamcity"
+    group: "teamcity"
+    mode: "0644"
+
+# - name: nvm ls-remote
+#   block:
+#     - name: block
+#       shell: |
+#         . {{ nvm_install_path }}/nvm.sh
+#         HTTP_PROXY=/proxy.elhub.cloud:3128 HTTPS_PROXY=/proxy.elhub.cloud:3128 nvm ls-remote
+#       args:
+#         executable: /bin/bash
+#       register: ls_remote_response
+#       environment:
+#         HTTP_PROXY: http://proxy.elhub.cloud:3128
+#         HTTPS_PROXY: http://proxy.elhub.cloud:3128
+#         NO_PROXY: "localhost,.elhub.cloud,169.254.169.254,.oraclecloud.com"
+#   rescue:
+#     - name: Print errors
+#       debug:
+#         msg: "{{ ls_remote_response }}"
+
+# - name: install node
+#   shell: |
+#     . {{ nvm_install_path }}/nvm.sh
+#     nvm install {{ node_version }}
+#   args:
+#     executable: /bin/bash
+#   environment:
+#     HTTP_PROXY: http://proxy.elhub.cloud:3128
+#     HTTPS_PROXY: http://proxy.elhub.cloud:3128
+#     NO_PROXY: "localhost,.elhub.cloud,169.254.169.254,.oraclecloud.com"
+#   register: node_version_response
+#   changed_when: "'already installed' not in node_version_response.stderr"

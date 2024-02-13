@@ -6,6 +6,9 @@
        - unzip
        - curl
   become: true
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
 
 - name: Install
   ansible.builtin.shell:
@@ -14,12 +17,12 @@
   environment:
     SDKMAN_DIR: "{{ sdkman_dir }}"
 
-- name: Update
-  ansible.builtin.shell:
-    cmd: "source {{ sdkman_dir }}/bin/sdkman-init.sh && sdk selfupdate"
-    executable: /bin/bash
-  register: _sdkman_selfupdate
-  changed_when: _sdkman_selfupdate.stdout != 'No update available at this time.'
+# - name: Update
+#   ansible.builtin.shell:
+#     cmd: "source {{ sdkman_dir }}/bin/sdkman-init.sh && sdk selfupdate"
+#     executable: /bin/bash
+#   register: _sdkman_selfupdate
+#   changed_when: _sdkman_selfupdate.stdout != 'No update available at this time.'
 
-- name: Configure .*rc files
-  ansible.builtin.include_tasks: shell_config.yml
+# - name: Configure .*rc files
+#   ansible.builtin.include_tasks: shell_config.yml

@@ -14,6 +14,9 @@
       - curl
       - gnupg
       - lsb-release
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
   become: yes
 
 - name: Get the system architecture of your computer and put it in a variable
@@ -26,12 +29,18 @@
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
   become: yes
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
 
 - name: Add apt repository for Docker stable version
   ansible.builtin.apt_repository:
     repo: deb [arch="{{ systemarchitecture.stdout }}"] https://download.docker.com/linux/ubuntu "{{ ansible_distribution_release }}" stable
     state: present
   become: yes
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
 
 - name: Install Docker and its dependencies
   ansible.builtin.apt:
@@ -45,6 +54,9 @@
       - containerd.io
       - docker-compose-plugin
   become: yes
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
 
 - name: Add user to docker group
   ansible.builtin.user:

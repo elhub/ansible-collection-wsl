@@ -10,6 +10,10 @@
       - libsasl2-dev
       - libssl-dev
   become: yes
+  environment:
+    http_proxy: http://proxy.elhub.cloud:3128
+    https_proxy: http://proxy.elhub.cloud:3128
+    no_proxy: "localhost,.elhub.cloud,169.254.169.254,.oraclecloud.com"
 
 - name: Install pip python packages
   pip:

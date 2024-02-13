@@ -2,13 +2,21 @@
 - name: Upgrade packages
   apt:
     upgrade: yes
-    update_cache: yes
+    update_cache: no
+  environment:
+    http_proxy: http://proxy.elhub.cloud:3128
+    https_proxy: http://proxy.elhub.cloud:3128
+    no_proxy: "localhost,.elhub.cloud,169.254.169.254,.oraclecloud.com"
   become: yes
 
 - name: Ensure default packages
   package:
     name: "{{ default_packages }}"
     state: present
+  environment:
+    http_proxy: http://proxy.elhub.cloud:3128
+    https_proxy: http://proxy.elhub.cloud:3128
+    no_proxy: "localhost,.elhub.cloud,169.254.169.254,.oraclecloud.com"
   become: yes
   retries: 3
 
@@ -16,5 +24,9 @@
   package:
     name: "{{ config_packages }}"
     state: present
+  environment:
+    http_proxy: http://proxy.elhub.cloud:3128
+    https_proxy: http://proxy.elhub.cloud:3128
+    no_proxy: "localhost,.elhub.cloud,169.254.169.254,.oraclecloud.com"
   become: yes
   retries: 3
