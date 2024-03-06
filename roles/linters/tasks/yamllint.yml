@@ -2,6 +2,9 @@
 - name: Ensure yamllint
   apt:
     name: yamllint
+  environment:
+    HTTP_PROXY: http://proxy.elhub.cloud:3128
+    HTTPS_PROXY: http://proxy.elhub.cloud:3128
   become_user: root
   become: yes
   ignore_errors: "{{ ansible_check_mode }}"
