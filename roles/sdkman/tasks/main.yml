@@ -9,7 +9,7 @@
 
 - name: Install
   ansible.builtin.shell:
-    cmd: curl 'https://get.sdkman.io?rcupdate=false' | bash
+    cmd: curl --proxy http://proxy.elhub.cloud:3128 'https://get.sdkman.io?rcupdate=false' | bash
     creates: "{{ sdkman_dir }}"
   environment:
     SDKMAN_DIR: "{{ sdkman_dir }}"
