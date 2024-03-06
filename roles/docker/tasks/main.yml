@@ -25,6 +25,9 @@
   ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
+  environment:
+    http_proxy: http://proxy.elhub.cloud:3128
+    https_proxy: http://proxy.elhub.cloud:3128
   become: yes
 
 - name: Add apt repository for Docker stable version
