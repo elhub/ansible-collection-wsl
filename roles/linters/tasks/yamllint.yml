@@ -1,6 +1,6 @@
 ---
 - name: Ensure yamllint
-  apt:
+  ansible.builtin.apt:
     name: yamllint
   environment:
     HTTP_PROXY: http://proxy.elhub.cloud:3128
