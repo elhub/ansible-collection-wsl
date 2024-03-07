@@ -22,12 +22,11 @@
   register: systemarchitecture
 
 - name: Add apt signing key for Docker
-  ansible.builtin.apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
-  environment:
-    http_proxy: http://proxy.elhub.cloud:3128
-    https_proxy: http://proxy.elhub.cloud:3128
+  ansible.builtin.shell:
+    cmd: |
+      curl -sSL \
+      'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xBBEBDCB318AD50EC6865090613B00F1FD2C19886' \
+      | sudo apt-key add -
   become: yes
 
 - name: Add apt repository for Docker stable version
