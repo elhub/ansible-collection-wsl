@@ -22,7 +22,7 @@
   register: systemarchitecture
 
 - name: Add apt signing key for Docker
-  ansible.builtin.shell:
+  ansible.builtin.apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
   environment:
